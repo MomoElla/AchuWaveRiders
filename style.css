@@ -1,4 +1,3 @@
-<style>
   :root{
     --indigo:#16384A;
     --indigo-deep:#0E2733;
@@ -338,4 +337,3 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1; transform:none; transition:none; }
   }
-</style>
