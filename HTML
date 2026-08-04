@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Main Point Surf Co. — Arugam Bay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo:#16384A;
+    --indigo-deep:#0E2733;
+    --ink:#132A26;
+    --turquoise:#1FA8A0;
+    --turquoise-bright:#3FCFC2;
+    --sand:#F1E7CE;
+    --cream:#FAF5E8;
+    --coral:#FF7A4D;
+    --line: rgba(19,42,38,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.02em;
+  }
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(250,245,232,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .mark{width:22px; height:22px; flex-shrink:0;}
+  .navlinks{display:flex; gap:32px; font-size:14px;}
+  .navlinks a{text-decoration:none; opacity:0.75; transition:opacity .2s;}
+  .navlinks a:hover, .navlinks a:focus-visible{opacity:1;}
+  .navlinks{display:none;}
+  @media(min-width:760px){ .navlinks{display:flex;} }
+  .nav-cta{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:var(--ink); color:var(--cream);
+    padding:9px 16px; border-radius:2px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding:150px 0 0;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% -10%, rgba(63,207,194,0.25), transparent 60%),
+      linear-gradient(180deg, var(--indigo) 0%, var(--indigo-deep) 100%);
+    color:var(--cream);
+  }
+  .hero-inner{
+    max-width:1120px; margin:0 auto; padding:0 28px 70px;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--turquoise-bright);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:''; width:26px; height:1px; background:var(--turquoise-bright);
+  }
+  .hero h1{
+    font-size:clamp(52px, 10vw, 118px);
+    color:var(--cream);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--turquoise-bright);
+    font-weight:500;
+  }
+  .hero-sub{
+    max-width:520px;
+    margin-top:26px;
+    font-size:17px;
+    line-height:1.6;
+    color:rgba(250,245,232,0.78);
+  }
+  .hero-ctas{
+    margin-top:38px;
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:14px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .btn-primary{ background:var(--coral); color:var(--indigo-deep); }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-ghost{
+    border:1px solid rgba(250,245,232,0.35);
+    color:var(--cream);
+  }
+  .btn-ghost:hover{ border-color:rgba(250,245,232,0.8); }
+
+  /* wave signature divider */
+  .wave-divider{
+    position:relative;
+    width:100%;
+    height:120px;
+    margin-top:60px;
+  }
+  .wave-divider svg{ width:100%; height:100%; display:block; }
+
+  /* ---------- SWELL STRIP ---------- */
+  .strip{
+    background:var(--ink);
+    color:var(--sand);
+    padding:16px 0;
+    overflow:hidden;
+    border-top:1px solid rgba(250,245,232,0.08);
+  }
+  .strip-inner{
+    display:flex; gap:48px;
+    font-family:'Space Mono', monospace;
+    font-size:12.5px;
+    white-space:nowrap;
+    animation:scrollstrip 26s linear infinite;
+    width:max-content;
+  }
+  .strip-inner span{ opacity:0.85; }
+  .strip-inner b{ color:var(--turquoise-bright); }
+  @keyframes scrollstrip{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .strip-inner{ animation:none; }
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ padding:100px 0; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:24px; margin-bottom:56px; flex-wrap:wrap;
+  }
+  .section-num{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--turquoise);
+    margin-bottom:14px;
+    display:block;
+  }
+  .section-head h2{ font-size:clamp(32px,5vw,46px); max-width:560px; }
+  .section-head p{ max-width:340px; font-size:15px; line-height:1.6; opacity:0.72; }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--cream); }
+  .about-grid{
+    display:grid; grid-template-columns:1fr; gap:64px; align-items:start;
+  }
+  .about-text p{ font-size:16px; line-height:1.75; margin-bottom:18px; max-width:52ch; }
+  .about-text p:first-child{ font-size:19px; font-family:'Fraunces',serif; font-weight:500; line-height:1.5; }
+  .stat-card{
+    background:var(--indigo); color:var(--cream);
+    padding:32px; border-radius:4px;
+    margin-bottom:16px;
+  }
+  .stat-card .num{ font-family:'Fraunces', serif; font-size:40px; color:var(--turquoise-bright); }
+  .stat-card .label{ font-family:'Space Mono', monospace; font-size:12px; opacity:0.75; margin-top:6px; }
+
+  .mini-stats{
+    display:flex; gap:36px; flex-wrap:wrap;
+    margin-top:36px; padding-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .mini-stats .mini-stat{ display:flex; align-items:baseline; gap:8px; }
+  .mini-stats .mini-stat .num{
+    font-family:'Fraunces', serif; font-size:20px; color:var(--turquoise);
+  }
+  .mini-stats .mini-stat .label{
+    font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.04em;
+    text-transform:uppercase; opacity:0.6;
+  }
+
+  /* ---------- LESSONS ---------- */
+  .lessons{ background:var(--sand); }
+  .lesson-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media(max-width:860px){ .lesson-grid{ grid-template-columns:1fr; } }
+  .lesson-card{
+    background:var(--sand);
+    padding:38px 32px;
+    display:flex; flex-direction:column; height:100%;
+  }
+  .lesson-duration{
+    font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.06em;
+    text-transform:uppercase; opacity:0.6; margin-top:16px;
+  }
+  .logistics{
+    margin-top:44px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  @media(max-width:760px){ .logistics{ grid-template-columns:1fr; } }
+  .logistics-item{
+    background:var(--cream); padding:26px 28px;
+  }
+  .logistics-item .li-label{
+    font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--turquoise); margin-bottom:10px; display:block;
+  }
+  .logistics-item p{ font-size:14px; line-height:1.6; opacity:0.8; }
+  .lesson-card.featured{ background:var(--indigo); color:var(--cream); }
+  .lesson-level{ font-family:'Space Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.65; margin-bottom:18px;}
+  .lesson-card h3{ font-size:26px; margin-bottom:12px; }
+  .lesson-price{ font-family:'Fraunces', serif; font-size:32px; margin:18px 0 20px; }
+  .lesson-price span{ font-family:'Space Mono',monospace; font-size:13px; opacity:0.6; }
+  .lesson-card ul{ list-style:none; margin-top:auto; padding-top:18px; border-top:1px solid var(--line); }
+  .lesson-card.featured ul{ border-top-color:rgba(250,245,232,0.2); }
+  .lesson-card li{ font-size:13.5px; padding:5px 0; opacity:0.8; }
+  .lesson-card li::before{ content:'— '; opacity:0.5; }
+
+  /* ---------- INSTRUCTORS ---------- */
+  .crew{ background:var(--cream); }
+  .crew-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:28px;
+    max-width:700px;
+  }
+  @media(max-width:600px){ .crew-grid{ grid-template-columns:1fr; } }
+  .crew-card .avatar{
+    width:100%; aspect-ratio:1; border-radius:4px;
+    background:linear-gradient(135deg, var(--turquoise), var(--indigo));
+    margin-bottom:18px;
+    position:relative; overflow:hidden;
+  }
+  .crew-card .avatar svg{ position:absolute; inset:0; width:100%; height:100%; opacity:.5; }
+  .crew-card h3{ font-size:19px; margin-bottom:4px; }
+  .crew-card .role{ font-family:'Space Mono', monospace; font-size:12px; color:var(--turquoise); margin-bottom:10px; }
+  .crew-card p{ font-size:14px; line-height:1.6; opacity:0.75; }
+
+  /* ---------- CTA / BOOKING ---------- */
+  .book{
+    background:var(--indigo-deep); color:var(--cream);
+    position:relative; overflow:hidden;
+  }
+  .book-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+  @media(max-width:860px){ .book-grid{ grid-template-columns:1fr; } }
+  .book h2{ font-size:clamp(32px,5vw,44px); color:var(--cream); margin-bottom:20px; }
+  .book p.lead{ opacity:0.72; line-height:1.7; max-width:44ch; margin-bottom:32px; }
+  .contact-list{ display:flex; flex-direction:column; gap:16px; }
+  .contact-list a, .contact-list div{
+    font-family:'Space Mono', monospace; font-size:13.5px;
+    text-decoration:none; opacity:0.85;
+    display:flex; gap:12px;
+  }
+  .contact-list b{ color:var(--turquoise-bright); font-weight:400; min-width:88px; }
+
+  form{ display:flex; flex-direction:column; gap:14px; }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  label{ font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.6; }
+  input, select, textarea{
+    background:rgba(250,245,232,0.06);
+    border:1px solid rgba(250,245,232,0.2);
+    color:var(--cream);
+    padding:12px 14px;
+    border-radius:2px;
+    font-family:'Work Sans', sans-serif;
+    font-size:14px;
+  }
+  input:focus, select:focus, textarea:focus{
+    outline:2px solid var(--turquoise-bright);
+    outline-offset:1px;
+    border-color:transparent;
+  }
+  textarea{ resize:vertical; min-height:90px; }
+  .submit-btn{
+    margin-top:6px;
+    background:var(--coral); color:var(--indigo-deep);
+    border:none; padding:14px 26px; border-radius:2px;
+    font-weight:600; font-size:14px; cursor:pointer;
+    align-self:flex-start;
+    transition:transform .2s ease;
+  }
+  .submit-btn:hover{ transform:translateY(-2px); }
+  .form-note{ font-size:12px; opacity:0.5; margin-top:4px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:var(--sand);
+    padding:36px 0;
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    opacity:0.55;
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 24 24" fill="none"><path d="M2 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" stroke="#1FA8A0" stroke-width="2" stroke-linecap="round"/><path d="M2 11c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" stroke="#16384A" stroke-width="2" stroke-linecap="round" opacity="0.4"/></svg>
+      Main Point Surf Co.
+    </div>
+    <div class="navlinks">
+      <a href="#about">The Break</a>
+      <a href="#lessons">Lessons</a>
+      <a href="#crew">Crew</a>
+      <a href="#book">Contact</a>
+    </div>
+    <a href="#book" class="nav-cta">Book a Session</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Arugam Bay, Sri Lanka · Est. surf camp</div>
+    <h1>Learn to<br>read <em>Main Point</em></h1>
+    <p class="hero-sub">Small-group and private surf lessons on the right-hand point break that put Arugam Bay on the map — from first pop-up to reading a proper point line.</p>
+    <div class="hero-ctas">
+      <a href="#book" class="btn btn-primary">Book a Session</a>
+      <a href="#lessons" class="btn btn-ghost">See Lessons</a>
+    </div>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,60 C150,10 250,110 400,60 C550,10 650,110 800,60 C950,10 1050,110 1200,60 L1200,120 L0,120 Z" fill="#FAF5E8"/>
+    </svg>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-inner">
+    <span>SEASON <b>MAY — OCT</b></span>
+    <span>BREAK TYPE <b>RIGHT-HAND POINT</b></span>
+    <span>BEST FOR <b>BEGINNER — INTERMEDIATE</b></span>
+    <span>BOARD RENTAL <b>INCLUDED</b></span>
+    <span>GROUP SIZE <b>MAX 4</b></span>
+    <span>SEASON <b>MAY — OCT</b></span>
+    <span>BREAK TYPE <b>RIGHT-HAND POINT</b></span>
+    <span>BEST FOR <b>BEGINNER — INTERMEDIATE</b></span>
+    <span>BOARD RENTAL <b>INCLUDED</b></span>
+    <span>GROUP SIZE <b>MAX 4</b></span>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Arugam Bay's Main Point is a long, peeling right-hander — forgiving enough to learn on, good enough that you'll never want to leave.</p>
+        <p>We're a small crew of local and long-stay instructors who've surfed this coastline for years. Lessons stay small on purpose, so you actually get corrected, not just supervised.</p>
+        <p>Whether you've never stood on a board or you're chasing your first proper point-break ride, we'll get you reading the wave, not just riding whitewash.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lessons" id="lessons">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">// LESSONS</span>
+        <h2>Pick your level, we'll pick the right peak.</h2>
+      </div>
+      <p>Every lesson includes board, rashguard, and a beach briefing on currents and etiquette before you paddle out.</p>
+    </div>
+  </div>
+  <div class="lesson-grid reveal">
+    <div class="lesson-card featured">
+      <div class="lesson-level">Beginner</div>
+      <h3>First Wave</h3>
+      <div class="lesson-price">Rs 7,500<span> / person</span></div>
+      <p>Land drills, pop-up technique, and your first rides on the inside whitewash.</p>
+      <ul>
+        <li>Lesson from 2 people</li>
+        <li>No experience needed</li>
+      </ul>
+      <div class="lesson-duration">90 minutes · Ages 6+</div>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-level">Private</div>
+      <h3>1-on-1 Coaching</h3>
+      <div class="lesson-price">Rs 8,000</div>
+      <p>One instructor, one student. Full attention, at a pace built around you.</p>
+      <ul>
+        <li>Flexible timing with tide</li>
+        <li>Any level welcome</li>
+      </ul>
+      <div class="lesson-duration">90 minutes · Ages 6+</div>
+    </div>
+    <div class="lesson-card featured">
+      <div class="lesson-level">Intermediate</div>
+      <h3>Point Break Line</h3>
+      <div class="lesson-price">Rs 10,000<span> / person</span></div>
+      <p>Move from whitewash to green waves — positioning, timing, and reading Main Point's line.</p>
+      <ul>
+        <li>Basic pop-up required</li>
+        <li>Any group size</li>
+      </ul>
+      <div class="lesson-duration">90 minutes · Ages 6+</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="logistics reveal">
+      <div class="logistics-item">
+        <span class="li-label">Pick-up</span>
+        <p>Free pick-up from your accommodation, or meet directly at Surf Wave Hotel — whichever's easier for you.</p>
+      </div>
+      <div class="logistics-item">
+        <span class="li-label">What's included</span>
+        <p>High-quality surfboard, leash, and rash guard are all provided. Please bring your own towel.</p>
+      </div>
+      <div class="logistics-item">
+        <span class="li-label">Age</span>
+        <p>Open to surfers age 6 and up. Let us know if you're booking for a younger child so we can plan the lesson accordingly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="crew" id="crew">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-num">// THE CREW</span>
+        <h2>Instructors who surf here every day.</h2>
+      </div>
+      <p>Experienced, professional coaches focused on one thing: helping you enjoy surfing safely and comfortably, every session.</p>
+    </div>
+    <div class="crew-grid">
+      <div class="crew-card reveal">
+        <div class="avatar"><svg viewBox="0 0 100 100"><path d="M0,60 C20,40 30,80 50,60 C70,40 80,80 100,60 L100,100 L0,100 Z" fill="#FAF5E8" opacity="0.5"/></svg></div>
+        <h3>Achu</h3>
+        <div class="role">Main Coach</div>
+        <p>Achu leads every lesson with a calm, patient approach — experienced and professional, making sure you feel safe and looked after as you learn to surf at your own pace.</p>
+      </div>
+      <div class="crew-card reveal">
+        <div class="avatar"><svg viewBox="0 0 100 100"><path d="M0,55 C20,35 30,75 50,55 C70,35 80,75 100,55 L100,100 L0,100 Z" fill="#FAF5E8" opacity="0.5"/></svg></div>
+        <h3>The Surf Crew</h3>
+        <div class="role">Assistant Instructors</div>
+        <p>A team of experienced, professional local surfers who grew up riding Main Point — here to help you enjoy every session safely, gently, and with real attention to detail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <div class="book-grid">
+      <div class="reveal">
+        <span class="section-num" style="color:#3FCFC2">// BOOK A SESSION</span>
+        <h2>Tell us your level, we'll match the tide.</h2>
+        <p class="lead">Lessons run around the tide, not the clock — we'll confirm your exact time once we check the swell for your dates.</p>
+        <div class="contact-list">
+          <a href="https://wa.me/94758203489"><b>WhatsApp</b> +94 75 820 3489</a>
+          <a href="mailto:ahamedaspaq70@icould.com"><b>Email</b> ahamedaspaq70@icould.com</a>
+          <div><b>Contact</b> Achu</div>
+          <div><b>Find us</b> Beach Road, Arugam Bay</div>
+        </div>
+      </div>
+      <form class="reveal" id="bookForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="level">Surf level</label>
+          <select id="level">
+            <option>Complete beginner</option>
+            <option>Intermediate</option>
+            <option>Private / guided</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dates">Dates in Arugam Bay</label>
+          <input id="dates" type="text" placeholder="e.g. 12–18 August">
+        </div>
+        <div class="field">
+          <label for="msg">Anything else</label>
+          <textarea id="msg" placeholder="Group size, past experience, questions..."></textarea>
+        </div>
+        <button class="submit-btn" type="submit">Send via WhatsApp</button>
+        <button class="submit-btn" type="button" id="emailBtn" style="background:transparent; border:1px solid rgba(250,245,232,0.35); color:var(--cream);">Send via Email instead</button>
+        <p class="form-note">Tapping send opens WhatsApp or your email app with the details filled in — you just hit send there.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>© 2026 MAIN POINT SURF CO. — ARUGAM BAY, SRI LANKA</div>
+    <div>SURF SAFE · RESPECT THE LOCALS · LEAVE NO TRACE</div>
+  </div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  items.forEach(el=>io.observe(el));
+
+  function buildMessage(){
+    const name = document.getElementById('name').value || '(no name given)';
+    const level = document.getElementById('level').value;
+    const dates = document.getElementById('dates').value || '(dates not given)';
+    const msg = document.getElementById('msg').value || '(none)';
+    return `Surf lesson enquiry\n\nName: ${name}\nLevel: ${level}\nDates: ${dates}\nNotes: ${msg}`;
+  }
+
+  const bookForm = document.getElementById('bookForm');
+  bookForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!document.getElementById('name').value){
+      document.getElementById('name').reportValidity();
+      return;
+    }
+    const text = encodeURIComponent(buildMessage());
+    window.open(`https://wa.me/94758203489?text=${text}`, '_blank');
+  });
+
+  document.getElementById('emailBtn').addEventListener('click', function(){
+    if(!document.getElementById('name').value){
+      document.getElementById('name').reportValidity();
+      return;
+    }
+    const subject = encodeURIComponent('Surf lesson enquiry — Main Point Surf Co.');
+    const body = encodeURIComponent(buildMessage());
+    window.location.href = `mailto:ahamedaspaq70@icould.com?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
