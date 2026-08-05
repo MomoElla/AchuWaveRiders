@@ -1,4 +1,4 @@
- :root{
+:root{
     --ink:#332F2A;
     --ink-soft: rgba(51,47,42,0.65);
     --cream:#FBF7EF;
@@ -198,8 +198,9 @@
   /* ---------- ABOUT ---------- */
   .about{ background:var(--cream); }
   .about-grid{
-    display:grid; grid-template-columns:1fr; gap:64px; align-items:start;
+    display:grid; grid-template-columns:1fr 0.85fr; gap:56px; align-items:start;
   }
+  @media(max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
   .about-text p{ font-size:15.5px; line-height:1.8; margin-bottom:18px; max-width:56ch; color:var(--ink-soft); }
   .about-text p:first-child{ font-size:19px; font-family:'Fraunces',serif; font-weight:500; line-height:1.55; color:var(--ink); }
 
@@ -247,10 +248,8 @@
   /* ---------- INSTRUCTORS ---------- */
   .crew{ background:var(--cream); }
   .crew-grid{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:22px;
-    max-width:680px;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:20px;
   }
-  @media(max-width:600px){ .crew-grid{ grid-template-columns:1fr; } }
   .crew-card{
     background:var(--paper); border:1px solid var(--line);
     border-radius:20px; padding:20px;
@@ -333,3 +332,133 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1; transform:none; transition:none; }
   }
+
+  /* ---------- PHOTO PLACEHOLDERS ---------- */
+  .photo-frame{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--blue);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .photo-frame img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .photo-frame .ph-label{
+    display:none;
+    flex-direction:column; align-items:center; gap:6px;
+    font-family:'Work Sans', sans-serif; font-size:12px;
+    color:var(--ink-soft); text-align:center; padding:16px;
+  }
+  .photo-frame .ph-label .ph-icon{ font-size:22px; opacity:0.5; }
+  .photo-frame .ph-label code{
+    font-size:11px; background:rgba(255,255,255,0.6); padding:3px 8px; border-radius:6px;
+  }
+  .photo-frame.img-missing{ background:var(--yellow); }
+  .photo-frame.img-missing img{ display:none; }
+  .photo-frame.img-missing .ph-label{ display:flex; }
+
+  .hero-photo{ aspect-ratio:16/7; margin-top:36px; }
+  @media(max-width:700px){ .hero-photo{ aspect-ratio:4/3; } }
+
+  .about-photo{ aspect-ratio:4/5; }
+  @media(max-width:760px){ .about-photo{ aspect-ratio:16/9; } }
+
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:130px;
+    gap:14px;
+  }
+  @media(max-width:860px){ .gallery-grid{ grid-template-columns:repeat(3,1fr); grid-auto-rows:110px; } }
+  @media(max-width:560px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:100px; } }
+  .gallery-grid .photo-frame:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+  .gallery-grid .photo-frame:nth-child(4){ grid-row:span 2; }
+  .gallery-grid .photo-frame:nth-child(7){ grid-column:span 2; }
+  @media(max-width:560px){
+    .gallery-grid .photo-frame:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+    .gallery-grid .photo-frame:nth-child(4){ grid-row:span 1; }
+    .gallery-grid .photo-frame:nth-child(7){ grid-column:span 1; }
+  }
+
+  .crew-card .avatar.photo-frame{ border-radius:14px; }
+
+  /* ---------- PHOTO SLIDER ---------- */
+  .photo-slider{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--blue);
+  }
+  .photo-slider .slide{
+    position:absolute; inset:0;
+    opacity:0;
+    transition:opacity .9s ease;
+  }
+  .photo-slider .slide.active{ opacity:1; z-index:1; }
+  .photo-slider .slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-slider .slide .ph-label{
+    display:none;
+    flex-direction:column; align-items:center; gap:6px; justify-content:center;
+    position:absolute; inset:0;
+    font-family:'Work Sans', sans-serif; font-size:12px;
+    color:var(--ink-soft); text-align:center; padding:16px;
+  }
+  .photo-slider .slide .ph-label .ph-icon{ font-size:22px; opacity:0.5; }
+  .photo-slider .slide .ph-label code{
+    font-size:11px; background:rgba(255,255,255,0.6); padding:3px 8px; border-radius:6px;
+  }
+  .photo-slider .slide.img-missing{ background:var(--yellow); }
+  .photo-slider .slide.img-missing img{ display:none; }
+  .photo-slider .slide.img-missing .ph-label{ display:flex; }
+  .slider-dots{
+    position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+    display:flex; gap:7px; z-index:5;
+  }
+  .slider-dots button{
+    width:7px; height:7px; border-radius:50%; border:none;
+    background:rgba(255,255,255,0.55); cursor:pointer; padding:0;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .slider-dots button.active{ background:#fff; transform:scale(1.3); }
+
+  .hero-slider{ aspect-ratio:16/7; margin-top:36px; }
+  @media(max-width:700px){ .hero-slider{ aspect-ratio:4/3; } }
+
+  .lessons-slider{ aspect-ratio:21/8; margin-bottom:44px; }
+  @media(max-width:700px){ .lessons-slider{ aspect-ratio:16/10; } }
+
+  /* ---------- MOBILE SLIDESHOW / DESKTOP ROW CAROUSEL ---------- */
+  .mobile-only{ display:block; }
+  .desktop-only{ display:none; }
+  @media(min-width:701px){
+    .mobile-only{ display:none; }
+    .desktop-only{ display:block; }
+  }
+
+  .photo-carousel{
+    display:flex; align-items:center; gap:12px;
+    margin-top:36px;
+  }
+  #lessons .photo-carousel{ margin-top:0; margin-bottom:44px; }
+  .car-track{
+    display:flex; gap:14px;
+    overflow-x:auto; scroll-behavior:smooth;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .car-track::-webkit-scrollbar{ display:none; }
+  .car-item{
+    flex:0 0 calc((100% - 28px)/3);
+    aspect-ratio:4/3;
+    scroll-snap-align:start;
+  }
+  .car-btn{
+    flex:0 0 auto;
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line); background:var(--paper);
+    cursor:pointer; font-size:17px; color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s ease;
+  }
+  .car-btn:hover{ background:var(--blue); }
