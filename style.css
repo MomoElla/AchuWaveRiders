@@ -86,7 +86,7 @@
     color:var(--ink);
   }
   .hero-inner{
-    max-width:1080px; margin:0 auto; padding:0 28px 56px;
+    max-width:1080px; margin:0 auto; padding:0 28px 20px;
     position:relative; z-index:2;
   }
   .eyebrow{
