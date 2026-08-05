@@ -178,7 +178,7 @@
   }
 
   /* ---------- SECTION GENERIC ---------- */
-  section{ padding:88px 0; }
+  section{ padding:40px 0; }
   .section-head{
     display:flex; align-items:flex-end; justify-content:space-between;
     gap:24px; margin-bottom:48px; flex-wrap:wrap;
