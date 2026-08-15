@@ -212,6 +212,15 @@
   grid-template-columns:repeat(3,1fr);
   gap:18px;
 }
+.lesson-card{
+  background:var(--yellow);
+  border-radius:20px;
+  padding:34px 30px;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
 @media(max-width:860px){
   .lesson-grid{ grid-template-columns:1fr; }
 }
