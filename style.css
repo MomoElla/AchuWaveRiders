@@ -207,6 +207,24 @@
   .about-text p:first-child{ font-size:19px; font-family:'Fraunces',serif; font-weight:500; line-height:1.55; color:var(--ink); }
 
   /* ---------- LESSONS ---------- */
+  .lesson-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+@media(max-width:860px){
+  .lesson-grid{ grid-template-columns:1fr; }
+}
+
+.lesson-grid.cols-2{
+  grid-template-columns:repeat(2,1fr);
+  max-width:720px;
+  margin:0 auto;
+}
+@media(max-width:860px){
+  .lesson-grid.cols-2{ grid-template-columns:1fr; }
+}
+
   .lessons{ background:var(--cream); }
  .lesson-grid.cols-2{
   grid-template-columns:repeat(2,1fr);
